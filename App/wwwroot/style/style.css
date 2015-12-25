@@ -17,7 +17,7 @@ aside{
 section{
     margin-left:20%;
     transition:margin-left ease 2s;
-    width:100%;
+    width:80%;
     height:100%;
 }
 
@@ -118,5 +118,7 @@ aside.hideClass{
 }
 section.hideClass{
     margin-left:0;
+    width:100%;
+    /*overflow-x: hidden;*/
     transition:margin-left ease 2s;
 }

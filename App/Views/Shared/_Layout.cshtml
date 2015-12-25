@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>TheWorld</title>
+    <link href="~/style/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    
+    <aside>
+        <div class="profile">
+            <img src="~/images/dp.jpg" width="80" height="80" alt="dp" class="mainImage" />
+            <div class="desx">
+                <p>Ehsan Rafeeque</p>
+                <em>Senior Data Farming Engineer</em>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a>Home</a></li>
+                <li><a>About</a></li>
+                <li><a>Contact</a></li>
+                <li><a>Service</a></li>
+            </ul>
+        </nav>
+    </aside>
+        
+    <section>
+        <nav>
+           <a id="hide-sidebar">Hide Sidebar</a>
+        </nav>
+        <header>
+            <hgroup>
+                <h2>Tour World</h2>
+                <em><h5>Let's Explore the World!</h5></em>
+            </hgroup>
+        </header>
+         
+         <article>
+             @RenderBody();
+         </article>
+           
+        <footer>
+            <p>&copy; All Right Reserved</p> 
+        </footer>
+    </section>
+    
+</body>
+    <script src="~/lib/jquery/dist/jquery.min.js" ></script>
+    <script src="~/script/script.js" ></script>
+    
+</html>
