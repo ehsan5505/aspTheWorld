@@ -1,0 +1,64 @@
+body{
+    font-family:sans-serif;
+    margin:0px;
+}
+
+aside{
+    height:100%;
+    width:20%;
+    position:fixed;
+    background-color:#222;
+    left:0;
+}
+
+section{
+    margin-left:20%;
+    width:100%;
+    height:100%;
+}
+article{
+    padding:10px;
+    background:#bbb;
+}
+
+header{
+    background-color:#222;
+    color:#c00;
+    padding:10px 20px;
+    height:100px;
+}
+
+footer{
+    background-color:#222;
+    color:#c00;
+    position:fixed;
+    bottom:0px;
+    width:100%;
+}
+
+/*working for the side*/
+.profile{
+    height:auto;
+    color:#c00;
+}
+.profile em{
+    font-size:12px;
+    text-align:center;
+    font-weight: bold;
+}
+.profile p{
+    font-variant: small-caps;
+}
+.profile img{
+    float:left;
+    width:30%;
+}
+
+.profile .desx{
+    margin-left:30%;
+}
+
+nav{
+    clear:both;
+}
+
