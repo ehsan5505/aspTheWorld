@@ -1,15 +1,22 @@
 ﻿@{ViewBag.Title = "Let's Explore the World!";}
 
-<form action="" method="">
-    <div>
-        <label for="Date">Date</label>
-        <input type="date" />
+<div class="row">
+    <div class="col-md-6">
+        <form>
+            <div class="form-group">
+                <label class="" for="Date">Date</label>
+                <input class="form-control" type="date" />
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" />
+            </div>
+            <div>
+                <input type="submit" value="Add" class="col-md-offset-10 btn btn-default"/>
+            </div>
+        </form>
     </div>
-    <div>
-        <label for="location">Location</label>
-        <input type="text" />
+    <div class="col-md-6">
+        <h1>Find Location on Map</h1>
     </div>
-    <div>
-        <input type="submit" value="Add" />
-    </div>
-</form>
+</div>

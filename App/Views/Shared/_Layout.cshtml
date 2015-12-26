@@ -4,32 +4,45 @@
 <head>
     <meta charset="utf-8" />
     <title>TheWorld - @ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/lib/bootswatch/slate/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
     <link href="~/style/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/style/reset-style.css" />
 </head>
 
 <body>
     
     <aside>
-        <div class="profile">
-            <img src="~/images/dp.jpg" width="80" height="80" alt="dp" class="mainImage" />
-            <div class="desx">
-                <p>Ehsan Rafeeque</p>
-                <em>Senior Data Farming Engineer</em>
+        <div class="profile panel panel-default">
+            <img class="img img-thumbnail" src="~/images/dp.jpg" width="80" height="80" alt="dp" class="mainImage" />
+            <div class="desx panel-heading">
+                <h5 class="panel-title">Ehsan Rafeeque</h5>
+                <em class="">Senior Data Farming Engineer</em>
             </div>
         </div>
-        <nav>
+        <nav class="nav">
             <ul>
-                <li><a asp-controller="app" asp-action="index">Home</a></li>
-                <li><a asp-controller="app" asp-action="about">About</a></li>
-                <li><a asp-controller="app" asp-action="contact">Contact</a></li>
-                <li><a asp-controller="app" asp-action="service">Service</a></li>
+                <li><a asp-controller="app" asp-action="index"><i class="fa fa-home"> </i><span class="col-sm-offset-1"></span> <span> Home</span></a></li>
+                <li><a asp-controller="app" asp-action="about"><i class="fa fa-commenting"> </i><span class="col-sm-offset-1"></span> <span> About</span></a></li>
+                <li><a asp-controller="app" asp-action="contact"><i class="fa fa-user"> </i> <span class="col-sm-offset-1"></span> <span>Contact</span></a></li>
+                <li><a asp-controller="app" asp-action="service"><i class="fa fa-server"> </i><span class="col-sm-offset-1"></span> <span>Service</span></a></li>
             </ul>
         </nav>
     </aside>
         
     <section>
-        <nav>
-           <a id="hide-sidebar">Hide Sidebar</a>
+        <nav class="navbar-fixed-top">
+           <a id="hide-sidebar" class="btn btn-sm "><i class="fa fa-chevron-left" > </i></a>
+            <a class="btn btn-default" asp-controller="app" asp-action="index"> TourWorld</a>
+            <ul class="navbar-right">
+                <li>
+                    <a class="btn"><i class="fa fa-print"> </i> Print</a>
+                    <a class="btn"><i class="fa fa-save"> </i> Save</a>
+                    <span>&nbsp;&nbsp;</span>
+                </li>
+                @*<li><a>Save</a></li>*@
+            </ul>
         </nav>
         <header>
             <hgroup>
@@ -38,17 +51,20 @@
             </hgroup>
         </header>
          
-         <article>
+         <article class="container-fluid">
              @RenderBody();
          </article>
            
-        <footer>
-            <p>&copy; All Right Reserved</p> 
+        <footer class="nav-fixed-bottom">
+            <div class="container-fluid">
+                <p>&copy; All Right Reserved</p>
+            </div> 
         </footer>
     </section>
     
 </body>
     <script src="~/lib/jquery/dist/jquery.min.js" ></script>
-    <script src="~/script/script.js" ></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" ></script>
     @RenderSection("Scripts", false);
+    <script src="~/script/script.js" ></script>
 </html>

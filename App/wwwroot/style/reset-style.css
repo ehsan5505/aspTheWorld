@@ -1,0 +1,95 @@
+/*reset the bootstrap approach*/
+/*.panel{
+    background-color:red;
+}
+.panel-default>.panel-heading{
+    background-color:rgb(251, 15, 15);
+}*/
+a{
+    text-decoration:none;
+    padding:2px;
+    margin:2 auto;
+}
+a:hover{
+    color:#222;
+    text-decoration:none;
+}
+nav.navbar{
+    margin:0px;
+    padding:0px;
+    background-color:rgb(255, 25, 25);
+    border:none;
+}
+nav.navbar .btn{
+    margin:5px;
+}
+i{
+    background:tranparent;
+    color:#000;
+    font-size:2em;
+}
+.navbar-fixed-top{
+    margin-left:20%;
+}
+
+section{
+    margin-top:40px;
+}
+
+a.btn{
+    background:transparent;
+    border:none;
+}
+a.btn:hover{
+    background:transparent;
+    padding:5px;
+}
+aside{
+    position:fixed;
+    top:0;
+}
+
+footer,section nav{
+    background-color:#e00;
+    color:#222;
+}
+
+nav ul li a{
+    color:white;
+}
+nav ul li a:hover{
+    color:#222;
+}
+
+nav ul li a i{
+    color:red;
+    padding:5px;
+    border:2px solid #e02;
+    border-radius:5px;
+    text-align:left;
+}
+
+aside nav ul li:hover{
+    border-bottom:5px solid red;
+}
+
+footer p{
+    text-align:center;
+    padding:2px;
+    font-family:Candara,arial,sans-serif;
+    font-weight:bolder;
+    margin-top:3px;
+    letter-spacing:2px;
+    /*font-variant:small-caps;*/
+}
+aside .panel{
+    width:90%;
+    margin:0 auto;
+}
+body{
+    background:#fff;
+}
+article{
+    background-color:transparent;
+}
+

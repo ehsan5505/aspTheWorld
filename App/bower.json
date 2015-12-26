@@ -2,8 +2,11 @@
   "name": "TheWorld",
   "private": true,
   "dependencies": {
+    "bootstrap": "~3.3.6",
+    "bootswatch": "~3.3.1+2",
+    "font-awesome": "~4.5.0",
     "jquery": "~2.1.4",
-    "jquery-validation-unobtrusive": "~3.2.5",
-    "jquery-validation": "~1.14.0"
+    "jquery-validation": "~1.14.0",
+    "jquery-validation-unobtrusive": "~3.2.5"
   }
 }

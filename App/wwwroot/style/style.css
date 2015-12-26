@@ -98,16 +98,15 @@ aside nav ul{
 }
 aside nav ul li{
     text-align:center;
-    border:-2px solid #c00;
+    border:-2px solid #e00;
     width:100%;
-    background-color:#222;
+    /*background-color:#222;*/
     padding:10px 0px;
 }
 aside nav ul li:hover{
-    background-color:#c00;
+    background-color:white;
     font-weight:bold;
 }
-
 /*working to hiding of sidebar*/
 
 aside.hideClass{
