@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using TheWorld.Models;
 
 namespace App
 {
@@ -23,6 +24,9 @@ namespace App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<WorldContext>();
             //if (env.IsDevelopment())
             //{
             //    //Just for mail Service testing purpose

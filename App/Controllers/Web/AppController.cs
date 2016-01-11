@@ -2,24 +2,30 @@ using System;
 using Microsoft.AspNet.Mvc;
 using App.ViewModel;
 using App.Services;
+using TheWorld.Models;
+using System.Linq;
 
 namespace App.Controllers.Web{
 
     public class AppController : Controller {
+        private WorldContext _context;
+
         //private IMailService _mailService;
 
-        //public AppController(IMailService service)
-        //{
-        //    _mailService = service;
-        //}
+        public AppController(WorldContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index(){
-            return View();
+            var trips = _context.Trips.ToList();
+            return View(trips);
         }
 
         public IActionResult Home()
         {
-            return View();
+            var trips = _context.Trips.ToList();
+            return View(trips);
         }
         
         public IActionResult Contact(){
