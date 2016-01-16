@@ -10,6 +10,6 @@ namespace TheWorld.Models
         public string UserName{ get; set; }
         public DateTime Created { get; set; }
 
-        public ICollection<Stop> Stop { get; set; }
+        public ICollection<Stop> Stops { get; set; }
     }
 }
