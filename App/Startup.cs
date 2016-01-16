@@ -8,9 +8,8 @@ namespace App
 {
     public class Startup
     {
-
-        public static IConfigurationRoot Configuration;
-        //public Startup(IApplicationEnvironment appEnv)
+        
+        //public static IConfigurationRoot Configuration;
         //{
         //    var builder = new ConfigurationBuilder(appEnv.ApplicationBasePath)
         //        .AddJsonFile("config.json")
@@ -24,9 +23,11 @@ namespace App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<WorldContextSeedData>();
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<WorldContext>();
+            services.AddScoped<IWorldRepository, WorldRepository>();
             //if (env.IsDevelopment())
             //{
             //    //Just for mail Service testing purpose
@@ -40,7 +41,7 @@ namespace App
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, WorldContextSeedData seeder)
         {
             app.UseStaticFiles();
 
@@ -52,6 +53,9 @@ namespace App
                     defaults: new { controller = "App", action = "Index" } 
                 );
             });
+
+            seeder.EnsureData();
+
             //app.UseIISPlatformHandler();
 
             //app.Run(async (context) =>
