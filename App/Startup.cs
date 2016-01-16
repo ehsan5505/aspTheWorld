@@ -3,6 +3,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using TheWorld.Models;
+using Microsoft.Extensions.Logging;
 
 namespace App
 {
@@ -28,6 +29,7 @@ namespace App
                 .AddDbContext<WorldContext>();
             services.AddTransient<WorldContextSeedData>();
             services.AddScoped<IWorldRepository, WorldRepository>();
+            services.AddLogging(); // adding the functionility of the debugging and logging
             //if (env.IsDevelopment())
             //{
             //    //Just for mail Service testing purpose
@@ -41,8 +43,9 @@ namespace App
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, WorldContextSeedData seeder)
+        public void Configure(IApplicationBuilder app, WorldContextSeedData seeder,ILoggerFactory logFactory)
         {
+            logFactory.AddDebug(LogLevel.Information);
             app.UseStaticFiles();
 
             app.UseMvc(config =>
