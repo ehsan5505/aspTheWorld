@@ -2,7 +2,7 @@
 
 namespace TheWorld.Models
 {
-    interface IWorldRepository
+    public interface IWorldRepository
     {
         IEnumerable<Trip> getAllTrips();
         IEnumerable<Trip> getAlTripsWithStop();

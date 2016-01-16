@@ -1,31 +1,32 @@
-using System;
 using Microsoft.AspNet.Mvc;
 using App.ViewModel;
-using App.Services;
 using TheWorld.Models;
-using System.Linq;
 
-namespace App.Controllers.Web{
+namespace App.Controllers.Web
+{
 
     public class AppController : Controller {
-        private WorldContext _context;
+        private IWorldRepository _repository;
+        //private WorldContext _context;
 
         //private IMailService _mailService;
 
-        public AppController(WorldContext context)
+        public AppController(IWorldRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public IActionResult Index(){
-            var trips = _context.Trips.ToList();
+            //var trips = _context.Trips.ToList();
+            var trips = _repository.getAllTrips();
             return View(trips);
         }
 
         public IActionResult Home()
         {
-            var trips = _context.Trips.ToList();
-            return View(trips);
+            //var trips = _context.Trips.ToList();
+            //return View(trips);
+            return View();
         }
         
         public IActionResult Contact(){
