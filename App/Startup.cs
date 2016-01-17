@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using TheWorld.Models;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 
 namespace App
 {
@@ -23,12 +24,16 @@ namespace App
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(opt =>
+                    { opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); }
+                    );
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<WorldContext>();
             services.AddTransient<WorldContextSeedData>();
             services.AddScoped<IWorldRepository, WorldRepository>();
+         
             services.AddLogging(); // adding the functionility of the debugging and logging
             //if (env.IsDevelopment())
             //{
