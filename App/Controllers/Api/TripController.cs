@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNet.Mvc;
+using System.Net;
 
 namespace TheWorld.Models
 {
@@ -22,7 +23,15 @@ namespace TheWorld.Models
         [HttpPost("")]
         public JsonResult PostingTheData([FromBody]Trip data)
         {
-            return Json(true);
+            if (ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.Created;
+                return Json(true);
+            }
+
+            // in case if data is not valid then do the following
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json(new { Message = "Invalid data" });
         }
     }
 }
