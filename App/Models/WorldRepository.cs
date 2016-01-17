@@ -24,6 +24,22 @@ namespace TheWorld.Models
             _context.Add(newTrip);
         }
 
+        public void AddStop(string tripName,Stop newStop)
+        {
+            //get the trip
+            var newtrip = getTripByName(tripName);
+            // add 1 to the order to get the max
+            if (newtrip.Stops.Count>0) {
+                newStop.Order = newtrip.Stops.Max(s => s.Order) + 1;
+            }
+            else
+            {
+                newStop.Order = 1;
+            }
+            //now add to the database
+            newtrip.Stops.Add(newStop);
+        }
+
         public IEnumerable<Trip> getAllTrips()
         {
             try
