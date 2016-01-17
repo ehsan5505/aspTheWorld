@@ -3,6 +3,7 @@ using Microsoft.AspNet.Mvc;
 
 namespace TheWorld.Models
 {
+    [Route("/api/trips")]
     public class TripController : Controller
     {
         private IWorldRepository _repository;
@@ -12,7 +13,7 @@ namespace TheWorld.Models
             _repository = repository;
         }
 
-        [HttpGet("/api/trips")]
+        [HttpGet("")]
         public JsonResult Get()
         {
             return Json(_repository.getAlTripsWithStop());
