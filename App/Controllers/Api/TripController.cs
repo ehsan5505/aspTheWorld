@@ -48,8 +48,13 @@ namespace TheWorld.Models
 
                     //save the data(trip) to the database
                     _logger.LogInformation("Attempting to save " + data.Name + " in the database");
-                    
-                    return Json(Mapper.Map<TripModelView>(newTrip));
+                    _repository.Add(newTrip);
+
+                    if (_repository.SaveAll())
+                    {
+                        _logger.LogInformation("Successfully add the trip " + newTrip.Name + " in to the database");
+                        return Json(Mapper.Map<TripModelView>(newTrip));
+                    }
                 }
 
                 // in case if data is not valid then do the following

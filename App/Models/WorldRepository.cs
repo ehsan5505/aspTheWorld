@@ -17,7 +17,13 @@ namespace TheWorld.Models
             _context    = context;
             _logger     = logger;
         }
-        
+
+        public void Add(Trip newTrip)
+        {
+            // add the trip to the db
+            _context.Add(newTrip);
+        }
+
         public IEnumerable<Trip> getAllTrips()
         {
             try
@@ -44,6 +50,11 @@ namespace TheWorld.Models
                 _logger.LogError("Error in the handling of the database: " + ex);
                 return null;
             }
+        }
+
+        public bool SaveAll()
+        {
+            return _context.SaveChanges() > 0 ? true : false;
         }
     }
 }
