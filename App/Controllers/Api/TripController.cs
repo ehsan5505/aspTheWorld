@@ -18,5 +18,11 @@ namespace TheWorld.Models
         {
             return Json(_repository.getAlTripsWithStop());
         }
+
+        [HttpPost("")]
+        public JsonResult PostingTheData([FromBody]Trip data)
+        {
+            return Json(true);
+        }
     }
 }
