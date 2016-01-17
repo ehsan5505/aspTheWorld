@@ -4,18 +4,20 @@ using System.Net;
 using TheWorld.ModelView;
 using AutoMapper;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace TheWorld.Models
 {
     [Route("/api/trips")]
     public class TripController : Controller
     {
-        private readonly TripModelView IEnumberable;
         private IWorldRepository _repository;
+        public ILogger _logger;
 
-        public TripController(IWorldRepository repository)
+        public TripController(IWorldRepository repository,ILogger<TripController> logger)
         {
             _repository = repository;
+            _logger = logger;
         }
 
         [HttpGet("")]
@@ -28,7 +30,9 @@ namespace TheWorld.Models
             }catch(Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
+                _logger.LogError("Error in the get api/trips service may be arise due to the mapping, here is the detail info : " + ex);
                 return Json(new { Message = "Error may be in the mapper", Error = ex });
+
             }
         }
 
@@ -41,15 +45,21 @@ namespace TheWorld.Models
                 {
                     var newTrip = Mapper.Map<Trip>(data);
                     Response.StatusCode = (int)HttpStatusCode.Created;
+
+                    //save the data(trip) to the database
+                    _logger.LogInformation("Attempting to save " + data.Name + " in the database");
+                    
                     return Json(Mapper.Map<TripModelView>(newTrip));
                 }
 
                 // in case if data is not valid then do the following
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                _logger.LogError("Error occur may be due to the model Invalidation, pleae check the log for full trace : " + ModelState);
                 return Json(new { Message = "Invalid data", ErrorProne = ModelState });
             }catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.ExpectationFailed;
+                _logger.LogError("Error occur in the post api/trips service may be mapping, for trace error view the detail: " + ex);
                 return Json(new { Message = "Error occur in the mapping", Error = ex });
             }
         }
