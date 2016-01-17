@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TheWorld.ModelView
@@ -12,5 +13,7 @@ namespace TheWorld.ModelView
         public String Name { get; set; }
 
         public DateTime Created { get; set; } = DateTime.UtcNow;
+
+        public IList<StopModelView> Stops { get; set; }
     }
 }

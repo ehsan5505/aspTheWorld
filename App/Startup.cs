@@ -54,7 +54,10 @@ namespace App
             logFactory.AddDebug(LogLevel.Information);
             app.UseStaticFiles();
             Mapper.Initialize(conf =>
-                {  conf.CreateMap<Trip, TripModelView>().ReverseMap(); }  //createMap<src,dest>();
+                {
+                    conf.CreateMap<Trip, TripModelView>().ReverseMap();
+                    conf.CreateMap<Stop, StopModelView>().ReverseMap();
+                 }  //createMap<src,dest>();
             );
             app.UseMvc(config =>
             {
