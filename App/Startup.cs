@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using TheWorld.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using AutoMapper;
+using TheWorld.ModelView;
 
 namespace App
 {
@@ -33,7 +35,6 @@ namespace App
                 .AddDbContext<WorldContext>();
             services.AddTransient<WorldContextSeedData>();
             services.AddScoped<IWorldRepository, WorldRepository>();
-         
             services.AddLogging(); // adding the functionility of the debugging and logging
             //if (env.IsDevelopment())
             //{
@@ -52,7 +53,9 @@ namespace App
         {
             logFactory.AddDebug(LogLevel.Information);
             app.UseStaticFiles();
-
+            Mapper.Initialize(conf =>
+                {  conf.CreateMap<Trip, TripModelView>().ReverseMap(); }  //createMap<src,dest>();
+            );
             app.UseMvc(config =>
             {
                 config.MapRoute(
