@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace TheWorld.Services
@@ -28,7 +29,7 @@ namespace TheWorld.Services
             
             var url = $"http://maps.googleapis.com/maps/api/geocode/json?address={location.ToLower()}&sensor=false";
 
-            var client = new System.Net.Http.HttpClient();
+            var client = new HttpClient();
             var json = await client.GetStringAsync(url);
             var result = JObject.Parse(json);
             var resources = result["results"][0]["geometry"]["location"];

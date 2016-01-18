@@ -1,29 +1,11 @@
-﻿@model IEnumerable<TheWorld.Models.Trip>
-@{ViewBag.Title = "Let's Explore the World!";}
+﻿@*@model IEnumerable<TheWorld.Models.Trip>*@
+@{ViewBag.Title = "Let's Explore the World!"; }
 
 <div class="row">
-    <div class="col-md-6">
-        <form>
-            <div class="form-group">
-                <label class="" for="Date">Date</label>
-                <input class="form-control" type="date" />
-            </div>
-            <div class="form-group">
-                <label for="location">Location</label>
-                <input type="text" class="form-control" />
-            </div>
-            <div>
-                <input type="submit" value="Add" class="col-md-offset-10 btn btn-default" />
-            </div>
-        </form>
-    </div>
-    <div class="col-md-6">
-        <h1>Find Location on Map</h1>
-        <ul>
-            @foreach (var trip in Model)
-            {
-                <li>@trip.Name (@trip.Created.ToShortDateString());</li>
-            }
-        </ul>
+    <div class="col-md-12">
+        <h1>Welcome to the World tour</h1>
+        <p>This app will allow you to manage your world trips.</p>
+        <a asp-controller="App" asp-action="tours"
+           style="border:5px #e2e2e2 solid;background:#000; color:#ff6a00;" class="btn btn-lg">View My Trips</a>
     </div>
 </div>
