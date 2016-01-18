@@ -23,29 +23,42 @@
 
         vm.newTrip = {};
 
-        vm.addTrip = function () {
-            vm.trips.push({
-                "name": vm.newTrip.name,
-                "date": new Date()
+        //getting the service        
+        vm.errorMessage = "";
+        vm.isBusy = true;
+
+        $http.get("/api/trips")
+            .success(function (data) {
+                angular.copy(data, vm.trips);
+                //console.log(data[0]);
+            })
+            .error(function (err) {
+                vm.errorMessage = "Error in loading the data " + err;
+            })
+            .finally(function () {
+                vm.isBusy = false;
             });
 
-            vm.newTrip = {}; // clear the trip
-        }
+        //posting the service
+        vm.addTrip = function () {
+            //vm.trips.push({
+            //    "name": vm.newTrip.name,
+            //    "date": new Date()
+            //});
             vm.errorMessage = "";
             vm.isBusy = true;
 
-            $http.get("/api/trips")
+            $http.post("/api/trips", vm.newTrip)
                 .success(function (data) {
-                    angular.copy(data, vm.trips);
-                    //console.log(data[0]);
-                })
-                .error(function (err) {
-                    vm.errorMessage = "Error in loading the data " + err;
-                })
-                .finally(function () {
+                    vm.trips.push(data);
+                }).error(function (err) {
+                    vm.errorMessage = err;
+                }).finally(function () {
                     vm.isBusy = false;
-                });
-        
+                })
+            vm.newTrip = {}; // clear the trip
+        }
+
     }
 
 })();
