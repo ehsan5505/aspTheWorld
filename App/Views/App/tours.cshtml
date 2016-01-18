@@ -3,6 +3,7 @@
 
 @section Scripts{
     <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/script/simple-direct.js"></script>
     <script src="~/script/app-trip.js"></script>
     <script src="~/script/trip.controller.js"></script>
 }
@@ -11,8 +12,8 @@
 
     <div class="row" ng-controller="tripController as vm">
         <div class="col-md-6 col-md-offset-3">
-            <div ng-show="vm.errorMessage" class="alert-danger text-center">{{vm.errorMessage}}<br/></div>
-            <div ng-show="vm.isBusy" class="text-info text-center"><i class="fa fa-spinner fa-spin fa-2x"></i><span>Loading ...</span></div> 
+            <div ng-show="vm.errorMessage" class="alert-danger text-center">{{vm.errorMessage}}<br /></div>
+            <wait-cursor display="vm.isBusy"></wait-cursor> 
             <table class="table table-responsive table-responsive">
                 <tr ng-repeat="trip in vm.trips">
                     <td>{{ trip.name}}</td>
