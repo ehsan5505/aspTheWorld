@@ -1,20 +1,36 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TheWorld.Models
 {
     public class WorldContextSeedData
     {
         private WorldContext _context;
+        private UserManager<WorldUser> _userManager;
 
-        public WorldContextSeedData(WorldContext context)
+        public WorldContextSeedData(WorldContext context,UserManager<WorldUser> user)
         {
             _context = context;
+            _userManager = user;
         }
 
-        public void EnsureData()
+        public async Task EnsureDataWithAsync()
         {
+            // check the user in the userManager
+            if (await _userManager.FindByEmailAsync("ehsan5505@gmail.com") == null)
+            {
+                // add the user to the database
+                var newUser = new WorldUser
+                {
+                    UserName = "ehsan5505",
+                    Email = "ehsan5505@gmail.com"
+                };
+                await _userManager.CreateAsync(newUser);
+            }
+
             //if there isn't any data then fill it up with some juices
             if (!_context.Trips.Any())
             {
@@ -22,7 +38,7 @@ namespace TheWorld.Models
                 {
                     Name = "US Trip",
                     Created = DateTime.UtcNow,
-                    UserName = "",
+                    UserName = "ehsan5505",
                     Stops = new List<Stop>
                     {
                             new Stop() {  Name = "Atlanta, GA", Arrival = new DateTime(2014, 6, 4), Latitude = 33.748995, Longitude = -84.387982, Order = 0 },
@@ -43,7 +59,7 @@ namespace TheWorld.Models
                 {
                     Name = "World Trip",
                     Created = DateTime.UtcNow,
-                    UserName = "",
+                    UserName = "ehsan5505",
                     Stops = new List<Stop>()
                     {
                             new Stop() { Order = 0, Latitude =  33.748995, Longitude =  -84.387982, Name = "Atlanta, Georgia", Arrival = DateTime.Parse("Jun 3, 2014") },

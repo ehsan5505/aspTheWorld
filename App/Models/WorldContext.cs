@@ -1,9 +1,10 @@
 ﻿using Microsoft.Data.Entity;
 using System;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TheWorld.Models
 {
-    public class WorldContext : DbContext
+    public class WorldContext : IdentityDbContext<WorldUser>
     {
         public WorldContext() {
             Database.EnsureCreated();

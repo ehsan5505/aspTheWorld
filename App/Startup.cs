@@ -51,7 +51,7 @@ namespace App
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, WorldContextSeedData seeder,ILoggerFactory logFactory)
+        public async void Configure(IApplicationBuilder app, WorldContextSeedData seeder,ILoggerFactory logFactory)
         {
             logFactory.AddDebug(LogLevel.Information);
             app.UseStaticFiles();
@@ -70,7 +70,7 @@ namespace App
                 );
             });
 
-            seeder.EnsureData();
+           await seeder.EnsureDataWithAsync();
 
             //app.UseIISPlatformHandler();
 
