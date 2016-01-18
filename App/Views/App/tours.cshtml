@@ -23,10 +23,13 @@
                 <div class="form-group">
                     <label>Trip Name</label>
                     <input name="name" type="text" class="form-control" 
-                           ng-model="vm.newTrip.name" placeholder="Enter the Trip name" />
+                           ng-model="vm.newTrip.name" placeholder="Enter the Trip name" 
+                           required ng-minlength="5"/>
+                    <span ng-show="newTripForm.name.$error.required" class="text-warning">Name is required</span>
+                    <span ng-show="newTripForm.name.$error.minlength" class="text-warning">Name must contain more than 5 characters</span>
                 </div>
                 <div class="form-group text-right">
-                    <input class="btn btn-success" type="submit" value="submit" />
+                    <input class="btn btn-success" type="submit" value="submit" ng-disabled="newTripForm.name.$invalid" />
                 </div>
             </form>
 
