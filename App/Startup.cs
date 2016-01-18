@@ -8,6 +8,7 @@ using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using TheWorld.ModelView;
 using TheWorld.Services;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace App
 {
@@ -34,6 +35,19 @@ namespace App
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<WorldContext>();
+            services.AddIdentity<WorldUser, IdentityRole>(config =>
+                {
+                    config.User.RequireUniqueEmail = true;
+                    config.Password.RequiredLength = 8;
+                }
+            ).AddEntityFrameworkStores<WorldContext>();
+
+            
+            //services.ConfigureCookieAuthentication(config = > 
+            //{
+            //    config.LoginPath = "/Auth/Login";
+            //});
+
             services.AddTransient<WorldContextSeedData>();
             services.AddScoped<CoodinateServiceResult>(); //adding the cordicate service
             services.AddScoped<IWorldRepository, WorldRepository>();
@@ -55,12 +69,20 @@ namespace App
         {
             logFactory.AddDebug(LogLevel.Information);
             app.UseStaticFiles();
+            app.UseIdentity();
+
             Mapper.Initialize(conf =>
                 {
                     conf.CreateMap<Trip, TripModelView>().ReverseMap();
                     conf.CreateMap<Stop, StopModelView>().ReverseMap();
                  }  //createMap<src,dest>();
             );
+
+            app.UseCookieAuthentication(opt =>
+            {
+                opt.LoginPath = "/Auth/Login";
+            });
+
             app.UseMvc(config =>
             {
                 config.MapRoute(
