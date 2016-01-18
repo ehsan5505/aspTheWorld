@@ -40,6 +40,23 @@ namespace TheWorld.Models
             newtrip.Stops.Add(newStop);
         }
 
+        public void AddStop(string tripName,string name,Stop newStop)
+        {
+            //get the trip
+            var newtrip = getTripByName(tripName,name);
+            // add 1 to the order to get the max
+            if (newtrip.Stops.Count > 0)
+            {
+                newStop.Order = newtrip.Stops.Max(s => s.Order) + 1;
+            }
+            else
+            {
+                newStop.Order = 1;
+            }
+            //now add to the database
+            newtrip.Stops.Add(newStop);
+        }
+
         public IEnumerable<Trip> getAllTrips()
         {
             try
@@ -57,7 +74,7 @@ namespace TheWorld.Models
             try
             {
                 return _context.Trips
-                    .Include(t => t.UserName == name)
+                    .Where(t => t.UserName == name)
                     .OrderBy(t => t.Name)
                     .ToList();
             }
@@ -67,13 +84,9 @@ namespace TheWorld.Models
                 return null;
             }
         }
+        
 
-        private object Include(Func<object, bool> p)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Trip> getAlTripsWithStop()
+        public IEnumerable<Trip> getAllTripsWithStop()
         {
             try
             {
@@ -94,6 +107,14 @@ namespace TheWorld.Models
             return _context.Trips.
                     Include(t => t.Stops)
                     .Where(t => t.Name == tripName)
+                    .FirstOrDefault();
+        }
+
+        public Trip getTripByName(string tripName,string name)
+        {
+            return _context.Trips.
+                    Include(t => t.Stops)
+                    .Where(t => t.Name == tripName && t.UserName==name)
                     .FirstOrDefault();
         }
 

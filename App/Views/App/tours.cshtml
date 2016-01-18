@@ -1,7 +1,44 @@
 ﻿@model IEnumerable<TheWorld.Models.Trip>
 @{ViewBag.Title = "Let's Explore the World!";}
 
-<div class="row">
+@section Scripts{
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/script/simple-direct.js"></script>
+    <script src="~/script/app-trip.js"></script>
+    <script src="~/script/trip.controller.js"></script>
+}
+
+<div class="row" ng-app="app-trips">
+
+    <div class="row" ng-controller="tripController as vm">
+        <div class="col-md-6 col-md-offset-3">
+            <div ng-show="vm.errorMessage" class="alert-danger text-center">{{vm.errorMessage}}<br /></div>
+            <wait-cursor display="vm.isBusy"></wait-cursor> 
+            <table class="table table-responsive table-responsive">
+                <tr ng-repeat="trip in vm.trips">
+                    <td>{{ trip.name}}</td>
+                    <td>{{ trip.created | date:MM-dd-yyyy }}</td>
+                    <td><a href="">Manage</a></td>
+                </tr>
+            </table>
+
+            <form novalidate name="newTripForm" ng-submit="vm.addTrip()">
+                <div class="form-group">
+                    <label>Trip Name</label>
+                    <input name="name" type="text" class="form-control" 
+                           ng-model="vm.newTrip.name" placeholder="Enter the Trip name" 
+                           required ng-minlength="5"/>
+                    <span ng-show="newTripForm.name.$error.required" class="text-warning">Name is required</span>
+                    <span ng-show="newTripForm.name.$error.minlength" class="text-warning">Name must contain more than 5 characters</span>
+                </div>
+                <div class="form-group text-right">
+                    <input class="btn btn-success" type="submit" value="submit" ng-disabled="newTripForm.name.$invalid" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+
     <div class="col-md-6">
         <form>
             <div class="form-group">
