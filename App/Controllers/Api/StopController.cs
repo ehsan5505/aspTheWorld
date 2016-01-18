@@ -32,7 +32,8 @@ namespace TheWorld.Models
         {
             try
             {
-                var result = _repository.getTripByName(tripName);
+                //var result = _repository.getTripByName(tripName);
+                var result = _repository.getTripByName(tripName,User.Identity.Name);
                 var mapper = Mapper.Map<IList<StopModelView>>(result.Stops);
                 if (result == null)
                 {
@@ -70,7 +71,7 @@ namespace TheWorld.Models
                     newStop.Longitude = cordinateResult.Longitude;
                     newStop.Latitude = cordinateResult.Latitude;
                     // dump the data to the database
-                    _repository.AddStop(tripName,newStop);
+                    _repository.AddStop(tripName,User.Identity.Name,newStop);
                     if (_repository.SaveAll())
                     {
                         return Json(Mapper.Map<StopModelView>(newStop));

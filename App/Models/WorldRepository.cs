@@ -101,5 +101,30 @@ namespace TheWorld.Models
         {
             return _context.SaveChanges() > 0 ? true : false;
         }
+
+        public Trip getTripByName(string tripName, string name)
+        {
+            return _context.Trips.
+                    Include(t => t.Stops)
+                    .Where(t => t.Name == tripName && t.UserName == name)
+                    .FirstOrDefault();
+        }
+
+        public void AddStop(string tripName, string name, Stop newStop)
+        {
+            //get the trip
+            var newtrip = getTripByName(tripName,name);
+            // add 1 to the order to get the max
+            if (newtrip.Stops.Count > 0)
+            {
+                newStop.Order = newtrip.Stops.Max(s => s.Order) + 1;
+            }
+            else
+            {
+                newStop.Order = 1;
+            }
+            //now add to the database
+            newtrip.Stops.Add(newStop);
+        }
     }
 }
