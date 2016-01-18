@@ -11,10 +11,12 @@
 
     <div class="row" ng-controller="tripController as vm">
         <div class="col-md-6 col-md-offset-3">
+            <div ng-show="vm.errorMessage" class="alert-danger text-center">{{vm.errorMessage}}<br/></div>
+            <div ng-show="vm.isBusy" class="text-info text-center"><i class="fa fa-spinner fa-spin fa-2x"></i><span>Loading ...</span></div> 
             <table class="table table-responsive table-responsive">
                 <tr ng-repeat="trip in vm.trips">
-                    <td>{{trip.name}}</td>
-                    <td>{{trip.date | date:"MM-dd-yyyy"}}</td>
+                    <td>{{ trip.name}}</td>
+                    <td>{{ trip.created | date:MM-dd-yyyy }}</td>
                     <td><a href="">Manage</a></td>
                 </tr>
             </table>

@@ -6,7 +6,7 @@
 
     app.controller("tripController", tripController);
 
-    function tripController() {
+    function tripController($http) {
         var vm = this;
         vm.test = "Ehsan involve in the test";
 
@@ -30,9 +30,22 @@
             });
 
             vm.newTrip = {}; // clear the trip
-            //alert(vm.newTrip.name);
         }
+            vm.errorMessage = "";
+            vm.isBusy = true;
 
+            $http.get("/api/trips")
+                .success(function (data) {
+                    angular.copy(data, vm.trips);
+                    //console.log(data[0]);
+                })
+                .error(function (err) {
+                    vm.errorMessage = "Error in loading the data " + err;
+                })
+                .finally(function () {
+                    vm.isBusy = false;
+                });
+        
     }
 
 })();
