@@ -8,9 +8,11 @@ using System.Net;
 using TheWorld.ModelView;
 using TheWorld.Services;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Authorization;
 
 namespace TheWorld.Models
 {
+    [Authorize]
     [Route("api/trips/{tripName}/stops")]
     public class StopController :Controller
     {

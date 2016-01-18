@@ -52,6 +52,27 @@ namespace TheWorld.Models
             }
         }
 
+        public IEnumerable<Trip> getAllTripsForUser(string name)
+        {
+            try
+            {
+                return _context.Trips
+                    .Include(t => t.UserName == name)
+                    .OrderBy(t => t.Name)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error in the database handling : " + ex);
+                return null;
+            }
+        }
+
+        private object Include(Func<object, bool> p)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Trip> getAlTripsWithStop()
         {
             try

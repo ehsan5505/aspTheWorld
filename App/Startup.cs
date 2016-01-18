@@ -10,6 +10,7 @@ using TheWorld.ModelView;
 using TheWorld.Services;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Authentication.Cookies;
 
 namespace App
 {
@@ -43,7 +44,8 @@ namespace App
                 }
             ).AddEntityFrameworkStores<WorldContext>();
 
-            
+           
+
             //services.ConfigureCookieAuthentication(config = > 
             //{
             //    config.LoginPath = "/Auth/Login";
@@ -81,10 +83,14 @@ namespace App
 
             app.UseCookieAuthentication(opt =>
             {
+               
                 opt.LoginPath = new PathString("/Account/Login");
+                
+                    
             });
 
-            app.UseMvc(config =>
+            
+        app.UseMvc(config =>
             {
                 config.MapRoute(
                     name: "Default",

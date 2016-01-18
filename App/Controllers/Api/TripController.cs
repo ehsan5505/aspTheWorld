@@ -5,9 +5,12 @@ using TheWorld.ModelView;
 using AutoMapper;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNet.Authorization;
 
 namespace TheWorld.Models
 {
+
+    [Authorize]
     [Route("/api/trips")]
     public class TripController : Controller
     {
@@ -24,7 +27,8 @@ namespace TheWorld.Models
         public JsonResult Get()
         {
             try {
-                var results = _repository.getAlTripsWithStop();
+                //var results = _repository.getAlTripsWithStop();
+                var results = _repository.getAllTripsForUser(User.Identity.Name);
                 var mapper = Mapper.Map<IList<TripModelView>>(results);
                 return Json(mapper);
             }catch(Exception ex)
@@ -46,6 +50,8 @@ namespace TheWorld.Models
                     var newTrip = Mapper.Map<Trip>(data);
                     Response.StatusCode = (int)HttpStatusCode.Created;
 
+                    newTrip.UserName = User.Identity.Name; // adding the username
+                    
                     //save the data(trip) to the database
                     _logger.LogInformation("Attempting to save " + data.Name + " in the database");
                     _repository.Add(newTrip);
