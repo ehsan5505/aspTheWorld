@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using TheWorld.ModelView;
+using TheWorld.Services;
 
 namespace App
 {
@@ -34,6 +35,7 @@ namespace App
                 .AddSqlServer()
                 .AddDbContext<WorldContext>();
             services.AddTransient<WorldContextSeedData>();
+            services.AddScoped<CoodinateServiceResult>(); //adding the cordicate service
             services.AddScoped<IWorldRepository, WorldRepository>();
             services.AddLogging(); // adding the functionility of the debugging and logging
             //if (env.IsDevelopment())

@@ -6,18 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using TheWorld.ModelView;
+using TheWorld.Services;
+using System.Threading.Tasks;
+
 namespace TheWorld.Models
 {
     [Route("api/trips/{tripName}/stops")]
     public class StopController :Controller
     {
+        private CoodinateServiceResult _cordinate;
         private ILogger<StopController> _logger;
         private IWorldRepository _repository;
 
-        public StopController(IWorldRepository repository,ILogger<StopController> logger)
+        public StopController(IWorldRepository repository,CoodinateServiceResult cordinate,ILogger<StopController> logger)
         {
             _repository = repository;
             _logger = logger;
+            _cordinate = cordinate;
         }
 
         [HttpGet("")]
@@ -43,7 +48,7 @@ namespace TheWorld.Models
         }
 
         [HttpPost("")]
-        public JsonResult Post(string tripName,[FromBody]StopModelView vm)
+        public async Task<JsonResult> Post(string tripName,[FromBody]StopModelView vm)
         {
             try
             {
@@ -52,7 +57,16 @@ namespace TheWorld.Models
                     // map the stop
                     var newStop = Mapper.Map<Stop>(vm);
                     // get the co-ordinates
+                    var cordinateResult = await _cordinate.Lookup(newStop.Name);
 
+                    if (!cordinateResult.Status)
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        return Json(new { Message="Error in the finding of coordinates"});
+                    }
+
+                    newStop.Longitude = cordinateResult.Longitude;
+                    newStop.Latitude = cordinateResult.Latitude;
                     // dump the data to the database
                     _repository.AddStop(tripName,newStop);
                     if (_repository.SaveAll())
