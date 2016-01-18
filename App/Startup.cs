@@ -9,6 +9,7 @@ using AutoMapper;
 using TheWorld.ModelView;
 using TheWorld.Services;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Http;
 
 namespace App
 {
@@ -80,7 +81,7 @@ namespace App
 
             app.UseCookieAuthentication(opt =>
             {
-                opt.LoginPath = "/Auth/Login";
+                opt.LoginPath = new PathString("/Account/Login");
             });
 
             app.UseMvc(config =>
