@@ -28,7 +28,7 @@ namespace TheWorld.Models
                     UserName = "ehsan5505",
                     Email = "ehsan5505@gmail.com"
                 };
-                await _userManager.CreateAsync(newUser);
+                await _userManager.CreateAsync(newUser,"$Ehsan5505");
             }
 
             //if there isn't any data then fill it up with some juices
