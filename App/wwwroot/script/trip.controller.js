@@ -8,7 +8,19 @@
 
     function tripController() {
         var vm = this;
-        vm.name = "Ehsan involve in the test";
+        vm.test = "Ehsan involve in the test";
+
+        vm.trips = [
+            {
+                "name": "US Trip",
+                "date": new Date()
+            },
+            {
+                "name": "World Trip",
+                "date": new Date()
+            }
+        ]
+
     }
 
 })();
